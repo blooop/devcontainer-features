@@ -1,6 +1,5 @@
 #!/bin/bash
-set -e
-
+set -eou pipefail
 # The 'install.sh' entrypoint script is always executed as the root user.
 #
 # These variables are available:
