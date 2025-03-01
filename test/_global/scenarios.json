@@ -9,16 +9,5 @@
                 "greeting": "Greetings"
             }
         }
-    },
-    "pixi_and_color": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "color": {
-                "favorite": "green"
-            },
-            "pixi": {
-                "version": "v0.41.4"
-            }
-        }
     }
 }
