@@ -39,4 +39,4 @@ To complete the setup, add the following to your devcontainer.json:
 "postCreateCommand": "bash /usr/local/devcontainer-features/pixi/post-create.sh"
 ```
 
-This will ensure your Pixi packages are persisted between container rebuilds and are automatically installed on container startup.
+This will ensure your Pixi packages are persisted between container recreations and automatically installed on container startup.
