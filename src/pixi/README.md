@@ -6,7 +6,7 @@ This feature installs the [Pixi package manager](https://github.com/prefix-dev/p
 
 ```json
 "features": {
-    "ghcr.io/your-org/devcontainer-features/pixi:1": {
+    "ghcr.io/blooop/devcontainer-features/pixi:1": {
         "version": "v0.41.4"
     }
 }
