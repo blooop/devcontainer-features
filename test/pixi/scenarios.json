@@ -1,0 +1,26 @@
+{
+    "custom_version": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "pixi": {
+                "version": "v0.40.0"
+            }
+        }
+    },
+    "no_auto_install": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "pixi": {
+                "autoInstallDeps": false
+            }
+        }
+    },
+    "no_bash_completion": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "pixi": {
+                "addBashCompletion": false
+            }
+        }
+    }
+}
