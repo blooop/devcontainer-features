@@ -6,7 +6,7 @@ This feature installs the [Pixi package manager](https://github.com/prefix-dev/p
 
 ```json
 "features": {
-    "ghcr.io/your-org/devcontainer-features/pixi:1": {
+    "ghcr.io/blooop/devcontainer-features/pixi:1": {
         "version": "v0.41.4"
     }
 }
@@ -39,4 +39,4 @@ To complete the setup, add the following to your devcontainer.json:
 "postCreateCommand": "bash /usr/local/devcontainer-features/pixi/post-create.sh"
 ```
 
-This will ensure your Pixi packages are persisted between container recreations and automatically installed on container startup.
+This will ensure your Pixi packages are persisted between container rebuilds and are automatically installed on container startup.
