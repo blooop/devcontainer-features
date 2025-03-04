@@ -7,7 +7,12 @@ VERSION=${VERSION:-"latest"}
 echo "The requested version is: ${VERSION}"
 
 # Install dependencies
-apt-get update && apt-get install -y jq curl
+apt-get update && apt-get install -y --no-install-recommends \
+    jq \
+    curl \ 
+    libxi6 \
+    libxcursor-dev \
+    libxrandr-dev \
 
 if [ "${VERSION}" = "latest" ]; then
     echo "Installing latest version of urdf-viz..."
