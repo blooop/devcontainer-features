@@ -9,7 +9,7 @@
         "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
         "features": {
             "urdf-viz": {
-                "version": "v0.7.0"
+                "version": "v0.46.1"
             }
         }
     }
