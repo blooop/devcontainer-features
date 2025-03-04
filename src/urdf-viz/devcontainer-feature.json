@@ -1,7 +1,7 @@
 {
     "name": "URDF Visualizer",
     "id": "urdf-viz",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Installs urdf-viz, a visualization tool for URDF (Unified Robot Description Format)",
     "options": {
         "version": {
