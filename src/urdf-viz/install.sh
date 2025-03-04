@@ -25,7 +25,7 @@ else
 fi
 
 echo "Downloading from: ${DOWNLOAD_URL}"
-curl -sL ${DOWNLOAD_URL} -o urdf-viz.tar.gz
+curl -sL "${DOWNLOAD_URL}" -o urdf-viz.tar.gz
 
 # Extract and install
 mkdir -p /tmp/urdf-viz
