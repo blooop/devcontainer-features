@@ -18,6 +18,13 @@ CONFIGURE_VOLUME="${CONFIGUREVOLUME:-"true"}"
 
 echo "Setting up Pixi ${PIXI_VERSION}..."
 
+# Ensure curl is installed
+if ! type curl > /dev/null 2>&1; then
+    echo "Installing curl..."
+    apt-get update -y
+    apt-get install -y curl
+fi
+
 # Install Pixi
 curl -L -o /usr/local/bin/pixi -fsSL --compressed "https://github.com/prefix-dev/pixi/releases/download/${PIXI_VERSION}/pixi-$(uname -m)-unknown-linux-musl"
 chmod +x /usr/local/bin/pixi

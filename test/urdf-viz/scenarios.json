@@ -1,0 +1,16 @@
+{
+    "install_urdf_viz": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "urdf-viz": {}
+        }
+    },
+    "specific_version": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "urdf-viz": {
+                "version": "v0.46.1"
+            }
+        }
+    }
+}
