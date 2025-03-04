@@ -9,7 +9,7 @@ echo "The requested version is: ${VERSION}"
 # Install dependencies
 apt-get update && apt-get install -y --no-install-recommends \
     jq \
-    curl \ 
+    curl \
     libxi6 \
     libxcursor-dev \
     libxrandr-dev \
