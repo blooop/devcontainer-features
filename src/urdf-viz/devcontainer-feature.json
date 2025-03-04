@@ -1,0 +1,16 @@
+{
+    "name": "URDF Visualizer",
+    "id": "urdf-viz",
+    "version": "1.0.0",
+    "description": "Installs urdf-viz, a visualization tool for URDF (Unified Robot Description Format)",
+    "options": {
+        "version": {
+            "type": "string",
+            "default": "latest",
+            "description": "Version of urdf-viz to install. Use 'latest' for the most recent release."
+        }
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ]
+}

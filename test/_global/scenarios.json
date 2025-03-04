@@ -9,5 +9,14 @@
                 "greeting": "Greetings"
             }
         }
+    },
+    "urdf_viz_and_color": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "urdf-viz": {},
+            "color": {
+                "favorite": "green"
+            }
+        }
     }
 }
