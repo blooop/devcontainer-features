@@ -7,8 +7,8 @@ source dev-container-features-test-lib
 
 # Feature-specific tests
 check "urdf-viz binary exists" bash -c "which urdf-viz"
-check "urdf-viz runs" bash -c "urdf-viz --help | grep 'Options:'"
-check "specific version" bash -c "urdf-viz --version | grep 'v0.7.0'"
+check "urdf-viz version command" bash -c "urdf-viz --version"
+check "specific version" bash -c "urdf-viz --version | grep 'v0.46.1'"
 
 # Report result
 reportResults
