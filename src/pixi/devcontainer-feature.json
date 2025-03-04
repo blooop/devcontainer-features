@@ -27,6 +27,6 @@
     },
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils",
-        "ghcr.io/devcontainers/features/curl"
+        "ghcr.io/devcontainers-extra/features/curl-apt-get:1"
     ]
 }
