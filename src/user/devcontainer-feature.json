@@ -1,0 +1,51 @@
+{
+    "name": "User",
+    "id": "user",
+    "version": "1.0.0",
+    "description": "Create a non-root user with sudo permissions in any container",
+    "options": {
+        "username": {
+            "type": "string",
+            "default": "dev",
+            "description": "Username for the non-root user"
+        },
+        "userUid": {
+            "type": "string",
+            "default": "1000",
+            "description": "User ID (UID) for the non-root user"
+        },
+        "userGid": {
+            "type": "string",
+            "default": "1000",
+            "description": "Group ID (GID) for the non-root user"
+        },
+        "userShell": {
+            "type": "string",
+            "default": "/bin/bash",
+            "description": "Default shell for the non-root user"
+        },
+        "password": {
+            "type": "string",
+            "default": "password",
+            "description": "Password for the non-root user (required for sudo)"
+        },
+        "installSudo": {
+            "type": "boolean",
+            "default": true,
+            "description": "Install sudo if not already available"
+        },
+        "createHomeDir": {
+            "type": "boolean",
+            "default": true,
+            "description": "Create home directory for the user"
+        },
+        "additionalGroups": {
+            "type": "string",
+            "default": "",
+            "description": "Comma-separated list of additional groups for the user"
+        }
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ]
+}
