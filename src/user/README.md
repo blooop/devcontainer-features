@@ -14,7 +14,7 @@ This feature creates a non-root user with sudo permissions in any container. It'
 
 ## Options
 
-| Options Id | Description | Type | Default Value |
+| Option ID | Description | Type | Default Value |
 |-----|-----|-----|-----|
 | username | Username for the non-root user | string | dev |
 | userUid | User ID (UID) for the non-root user | string | 1000 |
