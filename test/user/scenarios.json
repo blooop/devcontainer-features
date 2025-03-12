@@ -1,9 +1,0 @@
-{
-    "default_setup": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "user": {}
-        }
-    }
-   
-}
