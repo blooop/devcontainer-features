@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -o pipefail
 
 # Get arguments
 USERNAME="${USERNAME:-"dev"}"
