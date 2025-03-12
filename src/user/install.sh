@@ -23,6 +23,9 @@ else
     OS_ID=$(uname -s)
 fi
 
+# Debug OS detection
+echo "Detected OS: $OS_ID"
+
 # Install sudo and passwd if not available
 if [ "$INSTALL_SUDO" = "true" ] && ! command -v sudo >/dev/null 2>&1; then
     echo "Installing sudo..."
@@ -32,7 +35,7 @@ if [ "$INSTALL_SUDO" = "true" ] && ! command -v sudo >/dev/null 2>&1; then
             apt-get install -y sudo passwd
             ;;
         alpine)
-            apk add --no-cache sudo shadow
+            apk add --no-cache sudo shadow bash
             ;;
         centos|fedora|rhel)
             if command -v dnf >/dev/null 2>&1; then
