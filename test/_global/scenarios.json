@@ -1,22 +1,8 @@
 {
-    "color_and_hello": {
+    "urdf_viz": {
         "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
         "features": {
-            "color": {
-                "favorite": "purple"
-            },
-            "hello": {
-                "greeting": "Greetings"
-            }
-        }
-    },
-    "urdf_viz_and_color": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "urdf-viz": {},
-            "color": {
-                "favorite": "green"
-            }
+            "urdf-viz": {}
         }
     }
 }
