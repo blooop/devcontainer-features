@@ -7,6 +7,8 @@ USERNAME="${USERNAME:-"dev"}"
 USER_UID="${USERUID:-"1000"}"
 USER_GID="${USERGID:-"1000"}"
 USER_SHELL="${USERSHELL:-"/bin/bash"}"
+USER_PASSWORD="${PASSWORD:-"password"}"
+PASSWORDLESS_SUDO="${PASSWORDLESSSUDO:-"false"}"
 INSTALL_SUDO="${INSTALLSUDO:-"true"}"
 CREATE_HOME_DIR="${CREATEHOMEDIR:-"true"}"
 ADDITIONAL_GROUPS="${ADDITIONALGROUPS:-""}"
@@ -21,22 +23,22 @@ else
     OS_ID=$(uname -s)
 fi
 
-# Install sudo if not available
+# Install sudo and passwd if not available
 if [ "$INSTALL_SUDO" = "true" ] && ! command -v sudo >/dev/null 2>&1; then
     echo "Installing sudo..."
     case "$OS_ID" in
         debian|ubuntu)
             apt-get update
-            apt-get install -y sudo
+            apt-get install -y sudo passwd
             ;;
         alpine)
-            apk add --no-cache sudo
+            apk add --no-cache sudo shadow
             ;;
         centos|fedora|rhel)
             if command -v dnf >/dev/null 2>&1; then
-                dnf install -y sudo
+                dnf install -y sudo passwd
             else
-                yum install -y sudo
+                yum install -y sudo passwd
             fi
             ;;
         *)
@@ -66,6 +68,10 @@ if ! id -u "$USERNAME" >/dev/null 2>&1; then
     else
         useradd -M -s "$USER_SHELL" -u "$USER_UID" -g "$USER_GID" "$USERNAME"
     fi
+    
+    # Set user password
+    echo "${USERNAME}:${USER_PASSWORD}" | chpasswd
+    echo "Password set for ${USERNAME}"
 fi
 
 # Add user to additional groups if specified
@@ -87,8 +93,11 @@ if command -v sudo >/dev/null 2>&1; then
     # Create sudoers.d directory if it doesn't exist
     mkdir -p /etc/sudoers.d
     
-    # Always set up passwordless sudo for simplicity in development containers
-    echo "$USERNAME ALL=(ALL) NOPASSWD: ALL" > "/etc/sudoers.d/$USERNAME"
+    if [ "$PASSWORDLESS_SUDO" = "true" ]; then
+        echo "$USERNAME ALL=(ALL) NOPASSWD: ALL" > "/etc/sudoers.d/$USERNAME"
+    else
+        echo "$USERNAME ALL=(ALL) ALL" > "/etc/sudoers.d/$USERNAME"
+    fi
     chmod 440 "/etc/sudoers.d/$USERNAME"
 fi
 
@@ -114,3 +123,7 @@ if [ "$USER_SHELL" = "/bin/bash" ] && [ -d "/home/$USERNAME" ]; then
 fi
 
 echo "User $USERNAME setup complete!"
+if [ "$PASSWORDLESS_SUDO" = "false" ]; then
+    echo "Note: The user will be prompted for password when using sudo."
+    echo "The password is: ${USER_PASSWORD}"
+fi
