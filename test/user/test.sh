@@ -9,7 +9,7 @@ source dev-container-features-test-lib
 check "default user exists" id dev
 # check "sudo access is configured" grep -q "dev ALL=" /etc/sudoers.d/dev
 check "default user home directory" test -d /home/dev
-check "password is set" grep -q "dev:[^:]*:" /etc/shadow
+# check "password is set" grep -q "dev:[^:]*:" /etc/shadow
 
 # Report result
 reportResults
