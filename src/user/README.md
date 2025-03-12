@@ -22,7 +22,6 @@ This feature creates a non-root user with sudo permissions in any container. It'
 | userGid | Group ID (GID) for the non-root user | string | 1000 |
 | userShell | Default shell for the non-root user | string | /bin/bash |
 | password | Password for the non-root user (required for sudo) | string | password |
-| passwordlessSudo | Allow sudo commands without password prompt | boolean | false |
 | installSudo | Install sudo if not already available | boolean | true |
 | createHomeDir | Create home directory for the user | boolean | true |
 | additionalGroups | Comma-separated list of additional groups for the user | string | |
@@ -47,8 +46,7 @@ This feature is designed to work with most Linux distributions that support the 
 ## Notes
 
 - The feature will attempt to install sudo if it's not already available in the container
-- By default, the user must enter a password when using sudo
-- If you need passwordless sudo, set `passwordlessSudo` to true
+- The user will need to enter a password when using sudo
 - The default password is "password" if not specified
 - The user's home directory will be created at `/home/username` if `createHomeDir` is true
 - You can add the user to additional groups by providing a comma-separated list to `additionalGroups`

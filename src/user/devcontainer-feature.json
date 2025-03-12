@@ -29,11 +29,6 @@
             "default": "password",
             "description": "Password for the non-root user (required for sudo)"
         },
-        "passwordlessSudo": {
-            "type": "boolean",
-            "default": false,
-            "description": "Allow sudo commands without password prompt"
-        },
         "installSudo": {
             "type": "boolean",
             "default": true,

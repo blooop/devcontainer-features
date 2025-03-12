@@ -10,8 +10,7 @@
         "features": {
             "user": {
                 "username": "devuser",
-                "password": "securepass",
-                "passwordlessSudo": true
+                "password": "securepass"
             }
         }
     },
