@@ -1,0 +1,27 @@
+{
+    "default_setup": {
+        "image": "ubuntu:latest",
+        "features": {
+            "user": {}
+        }
+    },
+    "custom_user": {
+        "image": "debian:latest",
+        "features": {
+            "user": {
+                "username": "customuser",
+                "userUid": "2000",
+                "userGid": "2000",
+                "additionalGroups": "docker,adm"
+            }
+        }
+    },
+    "alpine_test": {
+        "image": "alpine:latest",
+        "features": {
+            "user": {
+                "username": "alpineuser"
+            }
+        }
+    }
+}
