@@ -4,22 +4,6 @@
         "features": {
             "user": {}
         }
-    },
-    "custom_user": {
-        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
-        "features": {
-            "user": {
-                "username": "devuser",
-                "password": "securepass"
-            }
-        }
-    },
-    "alpine_test": {
-        "image": "alpine:latest",
-        "features": {
-            "user": {
-                "username": "alpineuser"
-            }
-        }
     }
+   
 }
