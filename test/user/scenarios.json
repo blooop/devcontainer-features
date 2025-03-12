@@ -1,18 +1,17 @@
 {
     "default_setup": {
-        "image": "ubuntu:latest",
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
         "features": {
             "user": {}
         }
     },
     "custom_user": {
-        "image": "debian:latest",
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
         "features": {
             "user": {
-                "username": "customuser",
-                "userUid": "2000",
-                "userGid": "2000",
-                "additionalGroups": "docker,adm"
+                "username": "devuser",
+                "password": "securepass",
+                "passwordlessSudo": true
             }
         }
     },
