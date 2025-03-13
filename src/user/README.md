@@ -1,21 +1,19 @@
+
 # User (user)
 
-This feature creates a non-root user with sudo permissions in any container. It's particularly useful for containers that only have the root user configured by default.
+Create a non-root user with sudo permissions in any container
 
 ## Example Usage
 
 ```json
 "features": {
-    "ghcr.io/blooop/devcontainer-features/user:1": {
-        "username": "dev",
-        "password": "mypassword"
-    }
+    "ghcr.io/blooop/devcontainer-features/user:1": {}
 }
 ```
 
 ## Options
 
-| Option ID | Description | Type | Default Value |
+| Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
 | username | Username for the non-root user | string | dev |
 | userUid | User ID (UID) for the non-root user | string | 1000 |
@@ -24,29 +22,10 @@ This feature creates a non-root user with sudo permissions in any container. It'
 | password | Password for the non-root user (required for sudo) | string | password |
 | installSudo | Install sudo if not already available | boolean | true |
 | createHomeDir | Create home directory for the user | boolean | true |
-| additionalGroups | Comma-separated list of additional groups for the user | string | |
+| additionalGroups | Comma-separated list of additional groups for the user | string | - |
 
-## Using with remoteUser
 
-To use the created user as the remote user in your devcontainer, add the following to your `devcontainer.json`:
 
-```json
-"remoteUser": "dev"
-```
+---
 
-Make sure the username matches the one you configured in the feature.
-
-## Compatibility
-
-This feature is designed to work with most Linux distributions that support the standard user management commands and sudo. This includes:
-- Debian/Ubuntu
-- Alpine
-- CentOS/RHEL/Fedora
-
-## Notes
-
-- The feature will attempt to install sudo if it's not already available in the container
-- The user will need to enter a password when using sudo
-- The default password is "password" if not specified
-- The user's home directory will be created at `/home/username` if `createHomeDir` is true
-- You can add the user to additional groups by providing a comma-separated list to `additionalGroups`
+_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/blooop/devcontainer-features/blob/main/src/user/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
