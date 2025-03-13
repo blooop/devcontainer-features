@@ -1,0 +1,24 @@
+{
+    "default": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "isaac_sim": {}
+        }
+    },
+    "version_2024_1_0": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "isaac_sim": {
+                "version": "2024.1.0"
+            }
+        }
+    },
+    "no_python": {
+        "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+        "features": {
+            "isaac_sim": {
+                "installPython": false
+            }
+        }
+    }
+} 

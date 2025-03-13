@@ -1,0 +1,30 @@
+{
+    "name": "isaac_sim",
+    "version": "1.0.0",
+    "description": "Installs NVIDIA Isaac Sim for robotics simulation",
+    "options": {
+        "version": {
+            "type": "string",
+            "default": "2024.1.0",
+            "description": "Version of Isaac Sim to install"
+        },
+        "installPython": {
+            "type": "boolean",
+            "default": true,
+            "description": "Whether to install Python dependencies"
+        }
+    },
+    "containerEnv": {
+        "ISAAC_SIM_PATH": "/opt/isaac-sim"
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance"
+            ]
+        }
+    },
+    "postCreateCommand": "sudo chown -R ${USER}:${USER} /opt/isaac-sim",
+    "remoteUser": "vscode"
+} 
