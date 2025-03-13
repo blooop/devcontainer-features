@@ -1,39 +1,38 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 
 echo "Activating feature 'urdf-viz'"
 
+# Source the helper script
+. ./library_script.sh
+
 VERSION=${VERSION:-"latest"}
 echo "The requested version is: ${VERSION}"
 
-# Install dependencies
-apt-get update && apt-get install -y jq curl
+# nanolayer is a cli utility which keeps container layers as small as possible
+# source code: https://github.com/devcontainers-extra/nanolayer
+# `ensure_nanolayer` is a bash function that will find any existing nanolayer installations,
+# and if missing - will download a temporary copy that automatically get deleted at the end
+# of the script
+ensure_nanolayer nanolayer_location "v0.4.29"
 
-if [ "${VERSION}" = "latest" ]; then
-    echo "Installing latest version of urdf-viz..."
-    DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/openrr/urdf-viz/releases/latest | \
-        jq -r '.assets[] | select(.name == "urdf-viz-x86_64-unknown-linux-gnu.tar.gz") | .browser_download_url')
-else
-    echo "Installing urdf-viz version ${VERSION}..."
-    DOWNLOAD_URL=$(curl -sL https://api.github.com/repos/openrr/urdf-viz/releases/tags/${VERSION} | \
-        jq -r '.assets[] | select(.name == "urdf-viz-x86_64-unknown-linux-gnu.tar.gz") | .browser_download_url')
-    
-    if [ -z "$DOWNLOAD_URL" ] || [ "$DOWNLOAD_URL" = "null" ]; then
-        echo "Error: Could not find urdf-viz version ${VERSION}"
-        exit 1
-    fi
-fi
+# Install dependencies using nanolayer
+$nanolayer_location \
+    install \
+    devcontainer-feature \
+    "ghcr.io/devcontainers-extra/features/apt-get-packages:1.0.6" \
+    --option packages='libxcb1,libx11-6,libgl1,libxau6,libxdmcp6'
 
-echo "Downloading from: ${DOWNLOAD_URL}"
-curl -sL "${DOWNLOAD_URL}" -o urdf-viz.tar.gz
-
-# Extract and install
-mkdir -p /tmp/urdf-viz
-tar -xzf urdf-viz.tar.gz -C /tmp/urdf-viz
-find /tmp/urdf-viz -name urdf-viz -type f -exec cp {} /usr/local/bin/ \;
-chmod +x /usr/local/bin/urdf-viz
-
-# Clean up
-rm -rf /tmp/urdf-viz urdf-viz.tar.gz
-
-echo "urdf-viz installation complete. You can now run 'urdf-viz' to visualize URDF files."
+# Use nanolayer to install the gh-release feature, which will handle the GitHub release download
+echo "Installing urdf-viz version ${VERSION}..."
+$nanolayer_location \
+    install \
+    devcontainer-feature \
+    "ghcr.io/devcontainers-extra/features/gh-release:1.0.25" \
+    --option repo='openrr/urdf-viz' \
+    --option binaryNames='urdf-viz' \
+    --option version="${VERSION}" \
+    --option assetRegex="urdf-viz-x86_64-unknown-linux-gnu.tar.gz" \
+    --option binPath="/usr/local/bin" \
+    --option dirPath="/tmp/urdf-viz" \
+    --option strip=1
