@@ -1,6 +1,6 @@
 # User (user)
 
-This feature creates a non-root user with sudo permissions in any container. It's particularly useful for containers that only have the root user configured by default.
+This feature creates a non-root user with sudo permissions in Debian-based containers. It's particularly useful for containers that only have the root user configured by default.
 
 ## Example Usage
 
@@ -38,10 +38,9 @@ Make sure the username matches the one you configured in the feature.
 
 ## Compatibility
 
-This feature is designed to work with most Linux distributions that support the standard user management commands and sudo. This includes:
-- Debian/Ubuntu
-- Alpine
-- CentOS/RHEL/Fedora
+This feature only works with Debian-based Linux distributions:
+- Debian
+- Ubuntu
 
 ## Notes
 

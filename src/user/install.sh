@@ -22,52 +22,31 @@ else
     OS_ID=$(uname -s)
 fi
 
-# Debug OS detection
-echo "Detected OS: $OS_ID"
+# Check if this is a Debian-based distribution
+if [[ "$OS_ID" != "debian" && "$OS_ID" != "ubuntu" ]]; then
+    echo "ERROR: This feature only supports Debian-based distributions (debian, ubuntu)."
+    echo "Detected OS: $OS_ID"
+    exit 1
+fi
 
 # Install sudo and passwd if not available
 if [ "$INSTALL_SUDO" = "true" ] && ! command -v sudo >/dev/null 2>&1; then
     echo "Installing sudo..."
-    case "$OS_ID" in
-        debian|ubuntu)
-            apt-get update
-            apt-get install -y sudo passwd
-            ;;
-        alpine)
-            apk add --no-cache sudo shadow bash
-            ;;
-        centos|fedora|rhel)
-            if command -v dnf >/dev/null 2>&1; then
-                dnf install -y sudo passwd
-            else
-                yum install -y sudo passwd
-            fi
-            ;;
-        *)
-            echo "WARNING: Unsupported OS for sudo installation. Please install sudo manually."
-            ;;
-    esac
+    apt-get update
+    apt-get install -y sudo passwd
 fi
 
 # Create group if it doesn't exist
 if ! getent group "$USER_GID" >/dev/null 2>&1; then
     echo "Creating group with GID ${USER_GID}..."
-    if [ "$OS_ID" = "alpine" ]; then
-        addgroup -g "$USER_GID" "$USERNAME"
-    else
-        groupadd -g "$USER_GID" "$USERNAME"
-    fi
+    groupadd -g "$USER_GID" "$USERNAME"
 fi
 
 # Get group name from GID
 GROUP_NAME=$(getent group "$USER_GID" | cut -d: -f1)
 if [ -z "$GROUP_NAME" ]; then
     GROUP_NAME="$USERNAME"
-    if [ "$OS_ID" = "alpine" ]; then
-        addgroup -g "$USER_GID" "$GROUP_NAME"
-    else
-        groupadd -g "$USER_GID" "$GROUP_NAME"
-    fi
+    groupadd -g "$USER_GID" "$GROUP_NAME"
 fi
 
 # Check if a user with the specified UID already exists
@@ -77,18 +56,10 @@ EXISTING_USER=$(getent passwd "$USER_UID" | cut -d: -f1 || echo "")
 if [ -z "$EXISTING_USER" ]; then
     # No user with this UID exists, create a new one
     echo "Creating user ${USERNAME}..."
-    if [ "$OS_ID" = "alpine" ]; then
-        if [ "$CREATE_HOME_DIR" = "true" ]; then
-            adduser -D -h "/home/$USERNAME" -s "$USER_SHELL" -u "$USER_UID" -G "$GROUP_NAME" "$USERNAME"
-        else
-            adduser -D -H -s "$USER_SHELL" -u "$USER_UID" -G "$GROUP_NAME" "$USERNAME"
-        fi
+    if [ "$CREATE_HOME_DIR" = "true" ]; then
+        useradd -m -s "$USER_SHELL" -u "$USER_UID" -g "$USER_GID" "$USERNAME"
     else
-        if [ "$CREATE_HOME_DIR" = "true" ]; then
-            useradd -m -s "$USER_SHELL" -u "$USER_UID" -g "$USER_GID" "$USERNAME"
-        else
-            useradd -M -s "$USER_SHELL" -u "$USER_UID" -g "$USER_GID" "$USERNAME"
-        fi
+        useradd -M -s "$USER_SHELL" -u "$USER_UID" -g "$USER_GID" "$USERNAME"
     fi
     
     # Set user password
@@ -99,18 +70,10 @@ elif [ "$EXISTING_USER" != "$USERNAME" ]; then
     echo "User with UID ${USER_UID} already exists as '${EXISTING_USER}'"
     echo "Using next available UID for user '${USERNAME}'..."
     
-    if [ "$OS_ID" = "alpine" ]; then
-        if [ "$CREATE_HOME_DIR" = "true" ]; then
-            adduser -D -h "/home/$USERNAME" -s "$USER_SHELL" -G "$GROUP_NAME" "$USERNAME"
-        else
-            adduser -D -H -s "$USER_SHELL" -G "$GROUP_NAME" "$USERNAME"
-        fi
+    if [ "$CREATE_HOME_DIR" = "true" ]; then
+        useradd -m -s "$USER_SHELL" -g "$USER_GID" "$USERNAME"
     else
-        if [ "$CREATE_HOME_DIR" = "true" ]; then
-            useradd -m -s "$USER_SHELL" -g "$USER_GID" "$USERNAME"
-        else
-            useradd -M -s "$USER_SHELL" -g "$USER_GID" "$USERNAME"
-        fi
+        useradd -M -s "$USER_SHELL" -g "$USER_GID" "$USERNAME"
     fi
     
     # Set user password
@@ -127,22 +90,14 @@ else
     # Update shell if different
     current_shell=$(getent passwd "$USERNAME" | cut -d: -f7)
     if [ "$current_shell" != "$USER_SHELL" ]; then
-        if [ "$OS_ID" = "alpine" ]; then
-            sed -i "s|^\($USERNAME:[^:]*:[^:]*:[^:]*:[^:]*:[^:]*:\)[^:]*|\1$USER_SHELL|" /etc/passwd
-        else
-            usermod -s "$USER_SHELL" "$USERNAME"
-        fi
+        usermod -s "$USER_SHELL" "$USERNAME"
         echo "Updated shell to $USER_SHELL"
     fi
     
     # Update primary group if different
     current_gid=$(id -g "$USERNAME")
     if [ "$current_gid" != "$USER_GID" ]; then
-        if [ "$OS_ID" = "alpine" ]; then
-            sed -i "s|^\($USERNAME:[^:]*:[^:]*:\)[^:]*|\1$USER_GID|" /etc/passwd
-        else
-            usermod -g "$USER_GID" "$USERNAME"
-        fi
+        usermod -g "$USER_GID" "$USERNAME"
         echo "Updated primary group to GID $USER_GID"
     fi
     
@@ -166,18 +121,9 @@ if [ -n "$ADDITIONAL_GROUPS" ]; then
     for GROUP in "${GROUPS[@]}"; do
         # Check if group exists, create if not
         if ! getent group "$GROUP" >/dev/null 2>&1; then
-            if [ "$OS_ID" = "alpine" ]; then
-                addgroup "$GROUP"
-            else
-                groupadd "$GROUP"
-            fi
+            groupadd "$GROUP"
         fi
-        
-        if [ "$OS_ID" = "alpine" ]; then
-            adduser "$USERNAME" "$GROUP"
-        else
-            usermod -aG "$GROUP" "$USERNAME"
-        fi
+        usermod -aG "$GROUP" "$USERNAME"
     done
 fi
 
@@ -201,12 +147,6 @@ fi
 
 # Basic setup of bash configuration if shell is bash and home exists
 if [ "$USER_SHELL" = "/bin/bash" ] && [ -d "/home/$USERNAME" ]; then
-    # Make sure bash exists
-    if [ ! -f "$USER_SHELL" ] && [ "$OS_ID" = "alpine" ]; then
-        echo "Installing bash..."
-        apk add --no-cache bash
-    fi
-    
     if [ ! -f "/home/$USERNAME/.bashrc" ]; then
         cp /etc/skel/.bashrc "/home/$USERNAME/.bashrc" 2>/dev/null || echo "# .bashrc" > "/home/$USERNAME/.bashrc"
         chown "$USER_UID:$USER_GID" "/home/$USERNAME/.bashrc"
