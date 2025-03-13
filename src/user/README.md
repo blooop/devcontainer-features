@@ -1,7 +1,8 @@
 
 # User (user)
 
-Create a non-root user with sudo permissions in any container
+This feature creates a non-root user with sudo permissions in Debian-based containers. It's particularly useful for containers that only have the root user configured by default.
+
 
 ## Example Usage
 
@@ -24,6 +25,11 @@ Create a non-root user with sudo permissions in any container
 | createHomeDir | Create home directory for the user | boolean | true |
 | additionalGroups | Comma-separated list of additional groups for the user | string | - |
 
+
+
+This feature only works with Debian-based Linux distributions:
+- Debian
+- Ubuntu
 
 
 ---

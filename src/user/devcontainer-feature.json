@@ -1,8 +1,8 @@
 {
     "name": "User",
     "id": "user",
-    "version": "1.0.0",
-    "description": "Create a non-root user with sudo permissions in any container",
+    "version": "1.0.1",
+    "description": "Create a non-root user with sudo permissions in debian based containers",
     "options": {
         "username": {
             "type": "string",
