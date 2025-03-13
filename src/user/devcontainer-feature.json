@@ -1,7 +1,7 @@
 {
     "name": "User",
     "id": "user",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Create a non-root user with sudo permissions in any container",
     "options": {
         "username": {
