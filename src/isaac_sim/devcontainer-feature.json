@@ -1,4 +1,5 @@
 {
+    "id": "isaac_sim",
     "name": "isaac_sim",
     "version": "1.0.0",
     "description": "Installs NVIDIA Isaac Sim for robotics simulation",
@@ -27,4 +28,4 @@
     },
     "postCreateCommand": "sudo chown -R ${USER}:${USER} /opt/isaac-sim",
     "remoteUser": "vscode"
-} 
+}
