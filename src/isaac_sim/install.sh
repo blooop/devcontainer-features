@@ -27,7 +27,7 @@ CACHED_FILE="${CACHE_DIR}/${CACHE_KEY}.zip"
 # Download and extract Isaac Sim
 if [ ! -f "${CACHED_FILE}" ]; then
     echo "Downloading Isaac Sim..."
-    curl -L ${DOWNLOAD_URL} -o ${CACHED_FILE}
+    curl -L "${DOWNLOAD_URL}" -o "${CACHED_FILE}"
 else
     echo "Using cached Isaac Sim download..."
 fi
