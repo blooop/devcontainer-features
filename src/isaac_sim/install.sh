@@ -36,7 +36,7 @@ echo "Extracting Isaac Sim..."
 unzip -q -o ${CACHED_FILE} -d ${INSTALL_DIR}
 
 # Set permissions
-chown -R ${USER}:${USER} ${INSTALL_DIR}
+chown -R "${USER}:${USER}" "${INSTALL_DIR}"
 
 # Add Isaac Sim to PATH
 echo "export ISAAC_SIM_PATH=${INSTALL_DIR}" >> ~/.bashrc
