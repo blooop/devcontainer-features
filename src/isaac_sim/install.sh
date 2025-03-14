@@ -14,7 +14,7 @@ DOWNLOAD_URL="https://download.isaacsim.omniverse.nvidia.com/isaac-sim-standalon
 
 # Create installation directory
 INSTALL_DIR="/opt/isaac-sim"
-mkdir -p ${INSTALL_DIR}
+mkdir -p "${INSTALL_DIR}"
 
 # Use nanolayer's cache directory
 CACHE_DIR="${NANOLAYER_CACHE_DIR:-/tmp/nanolayer/cache}"
