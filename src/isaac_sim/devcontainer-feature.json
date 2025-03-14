@@ -15,9 +15,38 @@
             "description": "Whether to install Python dependencies"
         }
     },
-    "containerEnv": {
-        "ISAAC_SIM_PATH": "/opt/isaac-sim"
+    "hostRequirements": {
+        "gpu": "optional"
     },
+    "containerEnv": {
+        "ISAAC_SIM_PATH": "/opt/isaac-sim",
+        "DISPLAY": "${localEnv:DISPLAY}",
+        "XAUTHORITY": "${localEnv:TMPDIR:/tmp}/xauth_docker_vsc_${localWorkspaceFolderBasename}",
+        "NVIDIA_VISIBLE_DEVICES": "all",
+        "NVIDIA_DRIVER_CAPABILITIES": "all"
+    },
+    "runArgs": [
+        "--network=host",
+        "--ipc=host",
+        "--gpus=all",
+        "--device=/dev/dri:/dev/dri",
+        "--group-add=video"
+    ],
+    "mounts": [
+        "type=bind,source=/etc/localtime,target=/etc/localtime,readonly",
+        "type=bind,source=/dev/input,target=/dev/input",
+        "type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix",
+        "type=bind,source=${localEnv:TMPDIR:/tmp}/xauth_docker_vsc_${localWorkspaceFolderBasename},target=${localEnv:TMPDIR:/tmp}/xauth_docker_vsc_${localWorkspaceFolderBasename}",
+        "type=bind,source=${localEnv:HOME}/.nvidia-omniverse/docker/cache/computecache,target=/root/.nv/ComputeCache",
+        "type=bind,source=${localEnv:HOME}/.nvidia-omniverse/docker/cache/glcache,target=/root/.cache/nvidia/GLCache",
+        "type=bind,source=${localEnv:HOME}/.nvidia-omniverse/docker/cache/kit,target=/opt/isaac-sim/cache/Kit",
+        "type=bind,source=${localEnv:HOME}/.nvidia-omniverse/docker/cache/ov,target=/root/.cache/ov",
+        "type=bind,source=${localEnv:HOME}/.nvidia-omniverse/docker/cache/pip,target=/root/.cache/pip",
+        "type=bind,source=${localEnv:HOME}/.nvidia-omniverse/docker/data,target=/root/.local/share/ov/data",
+        "type=bind,source=${localEnv:HOME}/.nvidia-omniverse/docker/documents,target=/root/Documents",
+        "type=bind,source=${localEnv:HOME}/.nvidia-omniverse/docker/logs,target=/root/.nvidia-omniverse/logs"
+    ],
+    "initializeCommand": "XAUTH=\"${localEnv:TMPDIR:/tmp}/xauth_docker_vsc_${localWorkspaceFolderBasename}\"; touch \"${XAUTH}\"; chmod a+r \"${XAUTH}\"; XAUTH_LIST=$(xauth nlist \"${localEnv:DISPLAY}\"); if [ -n \"${XAUTH_LIST}\" ]; then echo \"${XAUTH_LIST}\" | sed -e 's/^..../ffff/' | xauth -f \"${XAUTH}\" nmerge -; fi",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -26,5 +55,5 @@
             ]
         }
     },
-    "postCreateCommand": "sudo chown -R ${USER}:${USER} /opt/isaac-sim"
+    "postCreateCommand": "mkdir -p ${localEnv:HOME}/.nvidia-omniverse/docker/{cache/{computecache,glcache,kit,ov,pip},data,documents,logs}"
 }
