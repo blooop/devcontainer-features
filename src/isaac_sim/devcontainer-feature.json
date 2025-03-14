@@ -1,7 +1,7 @@
 {
     "id": "isaac_sim",
     "name": "isaac_sim",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Installs NVIDIA Isaac Sim for robotics simulation",
     "options": {
         "version": {
