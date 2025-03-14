@@ -27,6 +27,7 @@ Add the following to your devcontainer.json:
 ## Environment Variables
 
 - `ISAAC_SIM_PATH`: Path to Isaac Sim installation (default: `/opt/isaac-sim`)
+  Note: This variable is automatically set when the feature is installed. You only need to change it if you wish to override the default path.
 
 ## Testing
 

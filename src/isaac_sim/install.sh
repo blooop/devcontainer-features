@@ -14,7 +14,7 @@ DOWNLOAD_URL="https://download.isaacsim.omniverse.nvidia.com/isaac-sim-standalon
 
 # Create installation directory
 INSTALL_DIR="/opt/isaac-sim"
-mkdir -p ${INSTALL_DIR}
+mkdir -p "${INSTALL_DIR}"
 
 # Use nanolayer's cache directory
 CACHE_DIR="${NANOLAYER_CACHE_DIR:-/tmp/nanolayer/cache}"
@@ -27,7 +27,7 @@ CACHED_FILE="${CACHE_DIR}/${CACHE_KEY}.zip"
 # Download and extract Isaac Sim
 if [ ! -f "${CACHED_FILE}" ]; then
     echo "Downloading Isaac Sim..."
-    curl -L ${DOWNLOAD_URL} -o ${CACHED_FILE}
+    curl -L "${DOWNLOAD_URL}" -o "${CACHED_FILE}"
 else
     echo "Using cached Isaac Sim download..."
 fi
@@ -36,7 +36,7 @@ echo "Extracting Isaac Sim..."
 unzip -q -o ${CACHED_FILE} -d ${INSTALL_DIR}
 
 # Set permissions
-chown -R ${USER}:${USER} ${INSTALL_DIR}
+chown -R "${USER}:${USER}" "${INSTALL_DIR}"
 
 # Add Isaac Sim to PATH
 echo "export ISAAC_SIM_PATH=${INSTALL_DIR}" >> ~/.bashrc
