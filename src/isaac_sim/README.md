@@ -1,38 +1,32 @@
-# Isaac Sim DevContainer Feature
 
-This feature installs NVIDIA Isaac Sim in the devcontainer environment.
+# isaac_sim (isaac_sim)
 
-## Features
+Installs NVIDIA Isaac Sim for robotics simulation
 
-- Installs Isaac Sim 2024.1.0
-- Sets up environment variables and PATH
-- Includes Python support
-- Automatically tests the installation
-
-## Usage
-
-Add the following to your devcontainer.json:
+## Example Usage
 
 ```json
-{
-    "features": {
-        "ghcr.io/devcontainers/features/isaac_sim:1": {
-            "version": "2024.1.0",
-            "installPython": true
-        }
-    }
+"features": {
+    "ghcr.io/blooop/devcontainer-features/isaac_sim:1": {}
 }
 ```
 
-## Environment Variables
+## Options
 
-- `ISAAC_SIM_PATH`: Path to Isaac Sim installation (default: `/opt/isaac-sim`)
-  Note: This variable is automatically set when the feature is installed. You only need to change it if you wish to override the default path.
+| Options Id | Description | Type | Default Value |
+|-----|-----|-----|-----|
+| version | Version of Isaac Sim to install | string | 2024.1.0 |
+| installPython | Whether to install Python dependencies | boolean | true |
 
-## Testing
+## Customizations
 
-The installation is automatically tested during the container build process. You can verify the installation by running:
+### VS Code Extensions
 
-```bash
-python.sh -c "import omni; print('Isaac Sim is working!')"
-``` 
+- `ms-python.python`
+- `ms-python.vscode-pylance`
+
+
+
+---
+
+_Note: This file was auto-generated from the [devcontainer-feature.json](https://github.com/blooop/devcontainer-features/blob/main/src/isaac_sim/devcontainer-feature.json).  Add additional notes to a `NOTES.md`._
