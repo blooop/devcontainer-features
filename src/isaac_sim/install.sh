@@ -15,6 +15,7 @@ DOWNLOAD_URL="https://download.isaacsim.omniverse.nvidia.com/isaac-sim-standalon
 # Create installation directory
 INSTALL_DIR="/opt/isaac-sim"
 mkdir -p "${INSTALL_DIR}"
+chmod 777 /opt/isaac-sim
 
 # Use nanolayer's cache directory
 CACHE_DIR="${NANOLAYER_CACHE_DIR:-/tmp/nanolayer/cache}"
@@ -36,7 +37,7 @@ echo "Extracting Isaac Sim..."
 unzip -q -o ${CACHED_FILE} -d ${INSTALL_DIR}
 
 # Set permissions
-chown -R "${USER}:${USER}" "${INSTALL_DIR}"
+chown -R "$(id -u):$(id -g)" "${INSTALL_DIR}"
 
 # Add Isaac Sim to PATH
 echo "export ISAAC_SIM_PATH=${INSTALL_DIR}" >> ~/.bashrc
@@ -44,4 +45,6 @@ echo "export PATH=\${ISAAC_SIM_PATH}/python.sh:\$PATH" >> ~/.bashrc
 
 # Test Isaac Sim installation
 echo "Testing Isaac Sim installation..."
-${INSTALL_DIR}/python.sh -c "import omni; print('Isaac Sim installation successful!')" 
+${INSTALL_DIR}/python.sh -c "import omni; print('Isaac Sim installation successful!')"
+
+echo "Done!"
