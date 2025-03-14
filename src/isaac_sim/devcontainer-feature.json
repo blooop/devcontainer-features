@@ -26,6 +26,5 @@
             ]
         }
     },
-    "postCreateCommand": "sudo chown -R ${USER}:${USER} /opt/isaac-sim",
-    "remoteUser": "vscode"
+    "postCreateCommand": "sudo chown -R ${USER}:${USER} /opt/isaac-sim"
 }
