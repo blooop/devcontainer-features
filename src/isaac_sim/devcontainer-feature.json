@@ -15,9 +15,6 @@
             "description": "Whether to install Python dependencies"
         }
     },
-    "hostRequirements": {
-        "gpu": "optional"
-    },
     "containerEnv": {
         "ISAAC_SIM_PATH": "/opt/isaac-sim",
         "DISPLAY": "${localEnv:DISPLAY}",
