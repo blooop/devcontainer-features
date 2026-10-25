@@ -49,6 +49,13 @@
         "source=${localEnv:HOME}/.claude,target=/home/vscode/.claude,type=bind"
     ],
 
+    // The node feature puts node on PATH through the image ENV, but devpod
+    // runs lifecycle hooks with a PATH that drops it ("npm: command not
+    // found", exit 127), so name the node feature's bin dir here.
+    "remoteEnv": {
+        "PATH": "/usr/local/share/nvm/current/bin:${containerEnv:PATH}"
+    },
+
     "postCreateCommand": "npm install -g @devcontainers/cli",
 
     "name": "devcontainer-features"
