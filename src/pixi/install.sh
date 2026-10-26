@@ -34,7 +34,7 @@ pixi info
 if [ "${ADD_BASH_COMPLETION}" = "true" ]; then
     echo "Adding Pixi bash completion..."
     if [ ! -z "${_REMOTE_USER}" ]; then
-        echo "eval \"$(pixi completion -s bash)\"" >> "${_REMOTE_USER_HOME}/.bashrc"
+        echo 'eval "$(pixi completion -s bash)"' >> "${_REMOTE_USER_HOME}/.bashrc"
     fi
 fi
 
