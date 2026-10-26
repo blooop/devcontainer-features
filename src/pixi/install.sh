@@ -4,14 +4,14 @@ set -e
 # The 'install.sh' entrypoint script is always executed as the root user.
 #
 # These variables are available:
-# - PIXI_VERSION: The requested version (default: v0.41.4)
+# - PIXI_VERSION: The requested version (default: v0.83.0)
 # - ADD_BASH_COMPLETION: Whether to add bash completion (true/false)
 # - AUTO_INSTALL_DEPS: Whether to auto-run pixi install (true/false)
 # - CONFIGURE_VOLUME: Whether to add volume configuration to devcontainer (true/false)
 # - _REMOTE_USER: The user name of the non-root user in the container
 # - _REMOTE_USER_HOME: The home directory of the non-root user
 
-PIXI_VERSION="${VERSION:-"v0.41.4"}"
+PIXI_VERSION="${VERSION:-"v0.83.0"}"
 ADD_BASH_COMPLETION="${ADDBASHCOMPLETION:-"true"}"
 AUTO_INSTALL_DEPS="${AUTOINSTALLDEPS:-"true"}"
 CONFIGURE_VOLUME="${CONFIGUREVOLUME:-"true"}"
@@ -34,7 +34,7 @@ pixi info
 if [ "${ADD_BASH_COMPLETION}" = "true" ]; then
     echo "Adding Pixi bash completion..."
     if [ ! -z "${_REMOTE_USER}" ]; then
-        echo "eval \"$(pixi completion -s bash)\"" >> "${_REMOTE_USER_HOME}/.bashrc"
+        echo 'eval "$(pixi completion -s bash)"' >> "${_REMOTE_USER_HOME}/.bashrc"
     fi
 fi
 

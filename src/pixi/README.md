@@ -15,7 +15,7 @@ Install and configure Pixi package manager for Python project dependencies
 
 | Options Id | Description | Type | Default Value |
 |-----|-----|-----|-----|
-| version | Pixi version to install | string | v0.41.4 |
+| version | Pixi version to install | string | v0.83.0 |
 | addBashCompletion | Add Pixi bash completion | boolean | true |
 | autoInstallDeps | Automatically run 'pixi install' during container creation | boolean | true |
 | configureVolume | Configure a named volume for .pixi directory | boolean | true |

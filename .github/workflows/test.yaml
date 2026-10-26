@@ -15,7 +15,7 @@ jobs:
         features:
           - urdf-viz
           - user
-          # - pixi
+          - pixi
         baseImage:
           - debian:latest
           - ubuntu:latest
@@ -37,7 +37,7 @@ jobs:
         features:
           - urdf-viz
           - user
-          # - pixi
+          - pixi
     steps:
       - uses: actions/checkout@v4
 

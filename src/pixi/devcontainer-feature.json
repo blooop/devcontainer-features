@@ -1,12 +1,12 @@
 {
     "name": "Pixi Package Manager",
     "id": "pixi",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "description": "Install and configure Pixi package manager for Python project dependencies",
     "options": {
         "version": {
             "type": "string",
-            "default": "v0.41.4",
+            "default": "v0.83.0",
             "description": "Pixi version to install"
         },
         "addBashCompletion": {

@@ -26,7 +26,7 @@ Install and configure Pixi package manager for Python project dependencies.
     "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
     "features": {
         "ghcr.io/blooop/devcontainer-features/pixi:0": {
-            "version": "v0.41.4",
+            "version": "v0.83.0",
             "addBashCompletion": true,
             "autoInstallDeps": true
         }
